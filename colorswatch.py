@@ -81,6 +81,11 @@ dark_gray = {"pygame": (134,135,135), "tk": "#868787"}
 night_gray = {"pygame": (91,92,92), "tk": "#5B5C5C"}
 black = {"pygame": (0,0,0), "tk": "#000000"}
 
+# NIGHT SHADES
+nineoclock = {"pygame": (8, 47, 201), "tk": "#002FC9"}
+tenoclock = {"pygame": (0, 23, 99), "tk": "#001763"}
+elevenoclock = {"pygame": (0, 23, 40), "tk": "#001728"}
+
 
 #############################
 # ####### FUNCTIONS ####### #

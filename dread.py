@@ -7,6 +7,7 @@ from enum import Enum
 import stages
 import player
 import enemy as en
+import city
 
 class GameState(Enum):
     MAIN_MENU = 0
@@ -33,6 +34,8 @@ main_board = stages.GameBoard(640, 480, color = cs.black["pygame"])
 player = player.Player(main_board.root, main_board.screen_width / 2, main_board.screen_height / 2)
 enemy_list = []
 enemy_stack = []
+machi = city.City(main_board.root, 0, main_board.screen_height - 60 * 3)
+
 level = 1
 
 def roll():
@@ -72,7 +75,9 @@ def level_up(new_level):
     return level
 
 def draw():
+    machi.draw()
     player.draw()
+
     for enemy in enemy_list:
         enemy.draw()
 
@@ -112,6 +117,9 @@ def update():
 
 def run():
     level_up(1)
+    machi.build_building()
+
+
     while main_board.isInPlay:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
