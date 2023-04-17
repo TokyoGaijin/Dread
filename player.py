@@ -26,7 +26,7 @@ class Player(object):
         self.startX = startX
         self.startY = startY
         self.size = 10
-        self.speed = 2
+        self.speed = 3
         self.color = cs.red["pygame"]
         self.playerRect = pygame.Rect(self.startX, self.startY, self.size, self.size)
         self.current_state = PlayerStates.ALIVE
@@ -35,6 +35,7 @@ class Player(object):
         self.controlState = ControlState.GAME
         self.direction = "left"
         self.bullet_list = []
+        self.IMPACT_EVENT = pygame.USEREVENT + 1
 
 
     def move(self, direction):
@@ -46,6 +47,8 @@ class Player(object):
             self.playerRect.x -= self.speed
         if direction == "right":
             self.playerRect.x += self.speed
+
+
 
 
 
