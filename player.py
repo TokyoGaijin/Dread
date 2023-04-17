@@ -27,7 +27,7 @@ class Player(object):
         self.startY = startY
         self.size = 10
         self.speed = 3
-        self.color = cs.red["pygame"]
+        self.color = cs.tangelo["pygame"]
         self.playerRect = pygame.Rect(self.startX, self.startY, self.size, self.size)
         self.current_state = PlayerStates.ALIVE
         self.x_bound = x_limit

@@ -33,7 +33,6 @@ ENEMY_SPACING = 10
 main_board = stages.GameBoard(640, 480, color = cs.black["pygame"])
 player = player.Player(main_board.root, main_board.screen_width / 2, main_board.screen_height / 2)
 enemy_list = []
-enemy_stack = []
 machi = city.City(main_board.root, 0, main_board.screen_height - 60 * 3)
 
 level = 1
@@ -58,8 +57,7 @@ def roll():
 
 def clone_enemy():
     x, y = roll()
-    color = en.color_list[random.randrange(0, len(en.color_list))]
-    enemy = en.Enemy(main_board.root, x, y, color=color)
+    enemy = en.Enemy(main_board.root, x, y)
     enemy_list.append(enemy)
 
 
@@ -86,28 +84,44 @@ def draw():
 def update():
 
     for enemy in enemy_list:
-        if not enemy.isSettled:
-            enemy.chase(player.playerRect.x)
-            if enemy.rect.y >= main_board.screen_height - enemy.size:
-                enemy.rect.y = main_board.screen_height - enemy.size
-                enemy.isSettled = True
-                clone_enemy()
+        enemy.chase(player.playerRect.x)
+        if enemy.rect.y >= main_board.screen_height - enemy.size:
+            enemy.take_hit()
 
-            for bullets in player.bullet_list:
-                if bullets.bulletRect.colliderect(enemy.rect):
-                    enemy.isHit = True
-                    if enemy.isSettled:
-                        enemy.isSettled = False
-                    player.bullet_list.remove(bullets)
+        for bullets in player.bullet_list:
+            if bullets.bulletRect.colliderect(enemy.rect):
+                enemy.take_hit()
+                player.bullet_list.remove(bullets)
+
+        for bricks in machi.brick_list:
+            if bricks.colliderect(enemy.rect):
+                bricks.y += 2
+                if bricks.y >= main_board.screen_height:
+                    machi.brick_list.remove(bricks)
+        for windows in machi.window_list:
+            if windows.colliderect(enemy.rect):
+                windows.y += 2
+                if windows.y >= main_board.screen_height:
+                    machi.window_list.remove(windows)
+        for shader in machi.shade_list:
+            if shader.colliderect(enemy.rect):
+                shader.y += 2
+                if shader.y >= main_board.screen_height:
+                    machi.shade_list.remove(shader)
 
 
-    for i in range(0, len(enemy_list)):
-        for j in range(0, len(enemy_list)):
-            if enemy_list[i].rect.colliderect(enemy_list[j].coupler_rect) and enemy_list[j].isSettled:
-                if enemy_list[i].rect.y >= enemy_list[j].coupler_rect.y - enemy_list[i].size:
-                    enemy_list[i].rect.y = enemy_list[j].coupler_rect.y - enemy_list[i].size
-                    enemy_list[i].isSettled = True
-                    #clone_enemy()
+    for bullets in player.bullet_list:
+        for bricks in machi.brick_list:
+            if bullets.bulletRect.colliderect(bricks):
+                machi.brick_list.remove(bricks)
+        for windows in machi.window_list:
+            if bullets.bulletRect.colliderect(windows):
+                machi.window_list.remove(windows)
+        for shader in machi.shade_list:
+            if bullets.bulletRect.colliderect(shader):
+                machi.shade_list.remove(shader)
+
+
 
 
     player.update()

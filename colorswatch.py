@@ -66,6 +66,7 @@ tangelo = {"pygame": (249,77,0), "tk": "#F94D00"}
 red ={"pygame": (255,0,0), "tk": "#FF0000"}
 purple_rain = {"pygame": (106,77,255), "tk": "#6A4DFF"}
 fuchsia = {"pygame": (255,25,255), "tk": "#FF19FF"}
+death_red = {"pygame": (150, 0, 19), "kt": "#960013"}
 
 # Browns
 brown = {"pygame": (165, 139, 86), "tk": "#A48B56"}
