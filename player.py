@@ -36,6 +36,7 @@ class Player(object):
         self.direction = "left"
         self.bullet_list = []
         self.IMPACT_EVENT = pygame.USEREVENT + 1
+        self.score = 0
 
 
     def move(self, direction):
